@@ -149,16 +149,14 @@
 /* Columns
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-#left-coulumn {
-    display: flex;
+#left-column {
     width: 25%;
     height: auto;
     margin: 0;
     padding: 0;
 }
 
-#center-coulumn {
-    display: flex;
+#center-column {
     width: 50%;
     height: auto;
     margin: 0;
@@ -166,7 +164,6 @@
 }
 
 #right-column {
-    display: flex;
     width: 25%;
     height: auto;
     margin: 0;

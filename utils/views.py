@@ -8,7 +8,7 @@ def view():
     return \
     html.Div(id="body", className="container scalable", children=[
         html.Div(id="app-container", children=[
-            html.Div(id="left-column", style={"width": "25%"}, children=[
+            html.Div(id="left-column", children=[
                 drc.Card(id="nuclei-card", children=[
                     drc.NamedInput('N', id='neutron-input', value=None, type="number", min=0, max=200, className="input1", placeholder='Enter Neutron Number'),
                     drc.NamedInput('Z', id='proton-input', value=None, type="number", min=0, max=200, className="input1", placeholder='Enter Proton Number'),
@@ -17,12 +17,12 @@ def view():
                     html.Button('Download Samples', id='download-button', className="button1")
                 ]),
             ]),
-            html.Div(id='center-column', style={"width": "50%"}, children=[
+            html.Div(id='center-column', children=[
                 dcc.Loading(children=[
                     html.Div(id="div-graphs")
                 ])
             ]),
-            html.Div(id="right-column", style={"display": "flex", "width": "25%"}, children=[
+            html.Div(id="right-column", children=[
             ]),                   
         ]),
     ]),

@@ -90,5 +90,5 @@ def download(n_clicks, data):
 
 # Running the server
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True, dev_tools_hot_reload=True, use_reloader=True)
    
