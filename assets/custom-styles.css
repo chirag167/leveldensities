@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
+#body {
+    padding-bottom: 5rem;
+}
+
+@media (max-width: 700px) {
+    #body {
+        width: 100%;
+    }
+}
+
+#react-entry-point {
+    height: auto
+}
+
+/* Scalable Container
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.container.scalable {
+    width: 95%;
+    max-width: none;
+    height: auto;
+}
+
+/* Banner
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.banner {
+    background-color: #264653;/*#4986B6;/*#B64986;/*#8f4d86; /*#2f3445; /* Machine Learning Color is orange */
+    padding: 0rem 0;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.banner h2 {
+    color: #a5b1cd;
+    display: inline-block;
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 4rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.banner h2:hover {
+    color: #b4b5bf;
+    cursor: pointer;
+}
+
+.banner Img {
+    position: relative;
+    float: right;
+    height: 14rem;
+    margin-top: 1.00rem
+}
+
+@media (max-width: 1300px) {
+
+    .banner .container.scalable {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .banner h2 {
+        font-size: 4rem;
+    }
+
+    .banner Img {
+        height: 10rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .banner .container.scalable {
+        padding: 0
+    }
+
+    .banner Img {
+        height:  9.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .banner h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .banner {
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .banner Img {
+        height: 6rem;
+        margin-bottom: 1rem;
+    }
+
+    .banner h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* app-container
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media (min-width: 951px) {
+    #app-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.Select-control {
+    color: #a5b1cd;
+}
+
+.Select {
+    color: #a5b1cd;
+}
+
+.Select-menu-outer {
+    background-color: #2f3445;
+    border: 1px solid gray;
+}
+
+.Select div {
+    background-color: #2f3445;
+}
+
+.Select-menu-outer div:hover {
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+.Select-value-label {
+    color: #a5b1cd !important;
+}
+
+.card {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 80%;
+    padding: 2rem 0;
+}
+
+/* Columns
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+#left-coulumn {
+    display: flex;
+    width: 25%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+#center-coulumn {
+    display: flex;
+    width: 50%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+#right-column {
+    display: flex;
+    width: 25%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* Left column
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+#input-card{
+ padding: 0;
+}
+
+.input1 {
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    width: 100%;
+}
+
+.button1 {
+    width: 100%;
+    height: 7vh;
+    color: #a5b1cd;
+    padding: 0;
+}
+
+#sample-button{
+    margin-bottom: 2rem;
+}
+
+
+/* Center column
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+#graph {
+    width: 50vw;
+    height: 40vw;
+    margin: 0;
+    padding: 0;
+}
+
+/* Right column
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
