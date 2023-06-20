@@ -49,13 +49,14 @@ app.layout = html.Div(children=[
     [Input('url','pathname')]
     )
 def display_page(pathname):
-    if(pathname == "/leveldensities"):
-        out = view()
-    else:
-        out = html.Div(
-            id="body",
-            className="container scalable",
-            children=[html.P("How did you get here? Click the banner to make it back to safety!")])
+    # if(pathname == "/leveldensities"):
+    #     out = view()
+    # else:
+    #     out = html.Div(
+    #         id="body",
+    #         className="container scalable",
+    #         children=[html.P("How did you get here? Click the banner to make it back to safety!")])
+    out = view()
     return out
 
 @app.callback(
