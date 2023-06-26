@@ -49,6 +49,7 @@ app.layout = html.Div(children=[
     [Input('url','pathname')]
     )
 def display_page(pathname):
+    ''' Function to display the page'''
     # if(pathname == "/leveldensities"):
     #     out = view()
     # else:
@@ -68,7 +69,8 @@ def display_page(pathname):
     ]
 )
 def main_output(N, Z):
-    if N == None or Z == None:
+    '''The main function'''
+    if N is None or Z is None:
         return html.P("Please enter an N and Z")
     return \
         [dcc.Graph(id="graph", figure=figs.lineplot(N,Z))]
@@ -80,9 +82,11 @@ def main_output(N, Z):
     prevent_initial_call=True,
 )
 def download(n_clicks, data):
-    if n_clicks == None or data == None:
+    '''Function to download the data files'''
+    if n_clicks is None or data is None:
         raise PreventUpdate
-    filename = "LDdata-"+str(date.today().strftime("%b%d-%Y"))+"_"+str(datetime.now().strftime("%H:%M:%S"))+".csv"
+    filename = "LDdata-"+str(date.today().strftime("%b%d-%Y"))+ \
+    "_"+str(datetime.now().strftime("%H:%M:%S"))+".csv"    
     data = pd.DataFrame(json.loads(data))
     def write_csv(bytes_io):
         # write csv to bytes_io
