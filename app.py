@@ -1,4 +1,5 @@
 import time
+import os
 import pandas as pd
 import random as rand
 import base64
@@ -16,6 +17,7 @@ from dash.exceptions import PreventUpdate
 import utils.dash_reusable_components as drc
 import utils.figures as figs
 from utils.views import *
+
 
 
 app = dash.Dash(
@@ -68,12 +70,34 @@ def display_page(pathname):
         Input("proton-input", "value"),
     ]
 )
-def main_output(N, Z):
+def main_output(Z, A):
     '''The main function'''
-    if N is None or Z is None:
-        return html.P("Please enter an N and Z")
-    return \
-        [dcc.Graph(id="graph", figure=figs.lineplot(N,Z))]
+    nld_log_file = pd.read_excel('Arranged data.xlsx')
+    nld_log_file.dropna(subset=['Datafile'],inplace = True)
+    nld_log_file.drop('Datafile',inplace=True,axis=1)
+    nld_log_file = nld_log_file.reset_index()
+    nld_log_file['Validation'] = nld_log_file['Validation'].replace(np.nan,'yes')
+
+    nld_folder = str(Z) + '_' + str(A)
+    data_frames = []
+
+    for filename in os.listdir(nld_folder):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(nld_folder, filename)
+            nld_file = pd.read_csv(file_path, comment='#', header=None)
+            nld_file.drop(3, axis=1, inplace=True)
+            nld_file.rename(columns={0: "E (MeV)", 1: r"$\rho$", 2: r"$\delta \rho$"}, inplace=True)
+            data_frames.append(nld_file)
+
+    if A is None or Z is None:
+        return html.P("Please enter an A and Z")
+            
+
+    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)]
+
+    
+    #return \
+        #[dcc.Graph(id="graph", figure=figs.lineplot(N,Z))]
 
 @app.callback(
     Output("samples-download", "data"),
