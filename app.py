@@ -88,7 +88,7 @@ def main_output(Z, A):
         # only csv files have been checked and validated yes/no.
         if filename.endswith('.csv'):
             file_path = os.path.join(nld_folder, filename)
-            # the first 2 or 3 lines in each csv file is just comments (to be ignored) starting with '#'
+            # the first 2 or 3 lines in each csv file is just comments (to be ignored) starting with hashtag
             nld_file = pd.read_csv(file_path, comment='#', header=None)
             # the dataframe also includes an extra column. So I am dropping it.
             nld_file.drop(3, axis=1, inplace=True)
