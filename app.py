@@ -68,7 +68,7 @@ def display_page(pathname):
     ]
 )
 def main_output(N, Z):
-    if N == None or Z == None:
+    if N is None or Z is None:
         return html.P("Please enter an N and Z")
     return \
         [dcc.Graph(id="graph", figure=figs.lineplot(N,Z))]
