@@ -72,28 +72,35 @@ def display_page(pathname):
 )
 def main_output(Z, A):
     '''The main function'''
+    # The arranged data excel sheet is uploaded to GitHub
     nld_log_file = pd.read_excel('Arranged data.xlsx')
+    # Drop the rows where the datafile doesn't exist
     nld_log_file.dropna(subset=['Datafile'],inplace = True)
+    # drop the datafile column because I will display the data on the website itself.
     nld_log_file.drop('Datafile',inplace=True,axis=1)
     nld_log_file = nld_log_file.reset_index()
     nld_log_file['Validation'] = nld_log_file['Validation'].replace(np.nan,'yes')
 
-    nld_folder = str(Z) + '_' + str(A)
+    nld_folder = str(Z) + '_' + str(A) # data folder is formatted as Z_A
     data_frames = []
 
     for filename in os.listdir(nld_folder):
+        # only csv files have been checked and validated yes/no.
         if filename.endswith('.csv'):
             file_path = os.path.join(nld_folder, filename)
+            # the first 2 or 3 lines in each csv file is just comments (to be ignored) starting with '#'
             nld_file = pd.read_csv(file_path, comment='#', header=None)
+            # the dataframe also includes an extra column. So I am dropping it.
             nld_file.drop(3, axis=1, inplace=True)
+            # renaming columns
             nld_file.rename(columns={0: "E (MeV)", 1: r"$\rho$", 2: r"$\delta \rho$"}, inplace=True)
             data_frames.append(nld_file)
 
     if A is None or Z is None:
         return html.P("Please enter an A and Z")
             
-
-    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)]
+    # return values of the function: the data frames containing the data and the log file containing general information about that isotope.
+    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)] 
 
     
     #return \
