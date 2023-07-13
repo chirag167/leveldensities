@@ -66,14 +66,14 @@ def display_page(pathname):
     Output("div-graphs", "children"),
     # Output("download-memory", "data"),
     [
-        Input("neutron-input", "value"),
+        Input("mass_number-input", "value"),
         Input("proton-input", "value"),
     ]
 )
 def main_output(Z, A):
     '''The main function'''
     # The arranged data excel sheet is uploaded to GitHub
-    nld_log_file = pd.read_excel('Arranged data.xlsx')
+    nld_log_file = pd.read_excel('Arranged_data.xlsx')
     # Drop the rows where the datafile doesn't exist
     nld_log_file.dropna(subset=['Datafile'],inplace = True)
     # drop the datafile column because I will display the data on the website itself.
@@ -100,11 +100,7 @@ def main_output(Z, A):
         return html.P("Please enter an A and Z")
             
     # return values of the function: the data frames containing the data and the log file containing general information about that isotope.
-    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)] 
-
-    
-    #return \
-        #[dcc.Graph(id="graph", figure=figs.lineplot(N,Z))]
+    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)], [dcc.Graph(id="graph", figure=figs.lineplot(A,Z))]
 
 @app.callback(
     Output("samples-download", "data"),
