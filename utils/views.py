@@ -10,7 +10,7 @@ def view():
         html.Div(id="app-container", children=[
             html.Div(id="left-column", children=[
                 drc.Card(id="nuclei-card", children=[
-                    drc.NamedInput('N', id='neutron-input', value=None, type="number", min=0, max=200, className="input1", placeholder='Enter Neutron Number'),
+                    drc.NamedInput('A', id='mass_number-input', value=None, type="number", min=0, max=200, className="input1", placeholder='Enter Mass Number'),
                     drc.NamedInput('Z', id='proton-input', value=None, type="number", min=0, max=200, className="input1", placeholder='Enter Proton Number'),
                 ]),
                 drc.Card(id="button-card", children=[

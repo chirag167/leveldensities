@@ -9,9 +9,9 @@ from functools import partial
 from plotly.tools import mpl_to_plotly
 
 
-def lineplot(N, Z):
+def lineplot(A, Z):
     
-    layout = go.Layout(title=f'N={N}, Z={Z}')
+    layout = go.Layout(title=f'A={A}, Z={Z}')
     traces = [go.Scatter(x=[], y=[], mode='lines')]
 
     return go.Figure(data=traces, layout=layout)
