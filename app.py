@@ -63,26 +63,26 @@ def display_page(pathname):
     return out
 
 @app.callback(
-    Output("div-graphs", "children"),
-    # Output("download-memory", "data"),
+    #Output("div-graphs", "children"),
+    Output("download-memory", "data"),
     [
         Input("mass_number-input", "value"),
         Input("proton-input", "value"),
     ]
 )
-def main_output(Z, A):
+def main_output(A, Z):
     '''The main function'''
     # The arranged data excel sheet is uploaded to GitHub
-    nld_log_file = pd.read_excel('Arranged_data.xlsx')
+    nld_log_file = pd.read_csv('Arranged_data.csv',header=0,sep=',')
     # Drop the rows where the datafile doesn't exist
     nld_log_file.dropna(subset=['Datafile'],inplace = True)
+    nld_log_file = nld_log_file.reset_index()
     # drop the datafile column because I will display the data on the website itself.
     nld_log_file.drop('Datafile',inplace=True,axis=1)
-    nld_log_file = nld_log_file.reset_index()
     nld_log_file['Validation'] = nld_log_file['Validation'].replace(np.nan,'yes')
 
     nld_folder = str(Z) + '_' + str(A) # data folder is formatted as Z_A
-    data_frames = []
+    #data_frames = []
 
     for filename in os.listdir(nld_folder):
         # only csv files have been checked and validated yes/no.
@@ -93,14 +93,14 @@ def main_output(Z, A):
             # the dataframe also includes an extra column. So I am dropping it.
             nld_file.drop(3, axis=1, inplace=True)
             # renaming columns
-            nld_file.rename(columns={0: "E (MeV)", 1: r"$\rho$", 2: r"$\delta \rho$"}, inplace=True)
-            data_frames.append(nld_file)
-
+            nld_file.rename(columns={0: "E (MeV)", 1: "NLD", 2: "NLD uncertainity"}, inplace=True)
+            #data_frames.append(nld_file)
+    
     if A is None or Z is None:
         return html.P("Please enter an A and Z")
             
     # return values of the function: the data frames containing the data and the log file containing general information about that isotope.
-    return data_frames,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)], [dcc.Graph(id="graph", figure=figs.lineplot(A,Z))]
+    return nld_file.to_dict('records') #,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)] , [dcc.Graph(id="graph", figure=figs.lineplot(A,Z))]
 
 @app.callback(
     Output("samples-download", "data"),
