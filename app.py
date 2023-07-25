@@ -6,6 +6,7 @@ import base64
 from datetime import datetime, date
 
 import dash
+from dash import dash_table
 from dash import dcc
 from dash import html
 import numpy as np
@@ -18,7 +19,7 @@ import utils.dash_reusable_components as drc
 import utils.figures as figs
 from utils.views import *
 
-
+df = pd.read_csv('26_56/NLD_26_56_4.csv',comment='#',header=None)
 
 app = dash.Dash(
     __name__,
@@ -44,6 +45,7 @@ app.layout = html.Div(children=[
     html.Div(id='page-content'),
     dcc.Store(id="download-memory"),
     dcc.Download(id="data-download"),
+    dash_table.DataTable(df.to_dict('records'))
 ])
 
 @app.callback(
@@ -63,7 +65,7 @@ def display_page(pathname):
     return out
 
 @app.callback(
-    #Output("div-graphs", "children"),
+    #Output("data-display", "children"),
     Output("download-memory", "data"),
     [
         Input("mass_number-input", "value"),
