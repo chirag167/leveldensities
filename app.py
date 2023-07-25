@@ -19,7 +19,7 @@ import utils.dash_reusable_components as drc
 import utils.figures as figs
 from utils.views import *
 
-df = pd.read_csv('26_56/NLD_26_56_4.csv',comment='#',header=None)
+#df = pd.read_csv('26_56/NLD_26_56_4.csv',comment='#',header=None)
 
 app = dash.Dash(
     __name__,
@@ -45,31 +45,15 @@ app.layout = html.Div(children=[
     html.Div(id='page-content'),
     dcc.Store(id="download-memory"),
     dcc.Download(id="data-download"),
-    dash_table.DataTable(df.to_dict('records'))
+    #dash_table.DataTable(df.to_dict('records'))
 ])
 
 @app.callback(
-    Output('page-content','children'),
-    [Input('url','pathname')]
-    )
-def display_page(pathname):
-    ''' Function to display the page'''
-    # if(pathname == "/leveldensities"):
-    #     out = view()
-    # else:
-    #     out = html.Div(
-    #         id="body",
-    #         className="container scalable",
-    #         children=[html.P("How did you get here? Click the banner to make it back to safety!")])
-    out = view()
-    return out
-
-@app.callback(
-    #Output("data-display", "children"),
+    #Output("div-graphs", "children"),
     Output("download-memory", "data"),
     [
-        Input("mass_number-input", "value"),
-        Input("proton-input", "value"),
+        Input("A", "value"),
+        Input("Z", "value"),
     ]
 )
 def main_output(A, Z):
@@ -100,9 +84,33 @@ def main_output(A, Z):
     
     if A is None or Z is None:
         return html.P("Please enter an A and Z")
-            
     # return values of the function: the data frames containing the data and the log file containing general information about that isotope.
-    return nld_file.to_dict('records') #,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)] , [dcc.Graph(id="graph", figure=figs.lineplot(A,Z))]
+    return dash_table.DataTable(nld_file.to_dict('records')) #,nld_log_file[(nld_log_file['Z'] == Z) & (nld_log_file['A'] == A)] , [dcc.Graph(id="graph", figure=figs.lineplot(A,Z))]
+
+
+@app.callback(
+    Output('page-content','children'),
+    [Input('url','pathname')]
+    )
+
+def display_page(pathname):
+    ''' Function to display the page'''
+    # if(pathname == "/leveldensities"):
+    #     out = view()
+    # else:
+    #     out = html.Div(
+    #         id="body",
+    #         className="container scalable",
+    #         children=[html.P("How did you get here? Click the banner to make it back to safety!")])
+    query_params = {param.split('=')[0]: param.split('=')[1] for param in pathname[1:].split('&')}
+    A = int(query_params.get('A', None))
+    Z = int(query_params.get('Z', None))
+
+    # Call the main_output function to get the DataTable component
+    table = main_output(A, Z)
+
+    # Return the DataTable to update the page-content div
+    return table
 
 @app.callback(
     Output("samples-download", "data"),
